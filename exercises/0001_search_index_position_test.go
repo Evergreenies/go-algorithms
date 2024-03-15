@@ -38,7 +38,7 @@ func searchIndexPosition(arr []int, target int) int {
 }
 
 func TestSearchIndexPosition(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		input          []int
 		target         int
 		expected_index int

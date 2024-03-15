@@ -1,6 +1,6 @@
 module github.com/Evergreenies/go-algorithms
 
-go 1.20
+go 1.22.0
 
 replace github.com/Evergreenies/go-algorithms => ../go-algorithms
 
