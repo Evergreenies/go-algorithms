@@ -2,6 +2,9 @@ package main
 
 import "fmt"
 
+/**
+* Doubly Linked List
+**/
 type DLLNode struct {
 	data     interface{}
 	previous *DLLNode
@@ -121,6 +124,69 @@ func (ll *DLL) insertAt(data interface{}, position int) {
 	}
 }
 
+func (ll *DLL) deleteFirst() (interface{}, error) {
+	if ll.isEmpty() {
+		return nil, fmt.Errorf("DeleteFirst: Index out or bound.")
+	}
+
+	currentNode := ll.head
+	var deletedNode interface{}
+	if currentNode.previous == nil {
+		deletedNode = currentNode.data
+		ll.head = currentNode.next
+		ll.head.previous = nil
+
+		ll.size--
+	}
+
+	return deletedNode, nil
+}
+
+func (ll *DLL) deleteLast() (interface{}, error) {
+	if ll.isEmpty() {
+		return nil, fmt.Errorf("DeleteLast: List is empty.")
+	}
+
+	currentNode := ll.head
+	for currentNode.next != nil {
+		currentNode = currentNode.next
+	}
+
+	ll.tail = currentNode.previous
+	ll.tail.next = nil
+
+	ll.size--
+
+	return currentNode.data, nil
+}
+
+func (ll *DLL) deleteAt(position int) (interface{}, error) {
+	if ll.isEmpty() {
+		return nil, fmt.Errorf("DeleteAt: List is empty.")
+	}
+
+	if position > ll.length() {
+		return nil, fmt.Errorf("DeleteAt: Index out of bound.")
+	}
+
+	currentNode := ll.head
+	var currentNodeData interface{}
+	for index := 1; index <= position; index++ {
+		if position == index {
+			currentNodeData = currentNode.data
+			currentNode.previous.next = currentNode.next
+			currentNode.next.previous = currentNode.previous
+
+			ll.size--
+			break
+		}
+
+		currentNode = currentNode.next
+	}
+
+	return currentNodeData, nil
+}
+
 func main() {
 	var dll DLL
 	fmt.Printf("Length of list is: %v\n", dll.length())
@@ -128,20 +194,44 @@ func main() {
 
 	dll.insertAtBeginning(10)
 	dll.insertAtBeginning(5)
-
 	fmt.Printf("Length of list is: %v\n", dll.length())
 	dll.display()
 
 	dll.insertAtEnd(15)
 	dll.insertAtEnd(20)
-
 	fmt.Printf("Length of list is: %v\n", dll.length())
 	dll.display()
 
 	dll.insertAt(25, 3)
 	dll.insertAt(0, 1)
 	dll.insertAt(30, 6)
+	fmt.Printf("Length of list is: %v\n", dll.length())
+	dll.display()
 
+	data, err := dll.deleteFirst()
+	if err != nil {
+		fmt.Errorf("Error while deleting first element: %v\n", err)
+	} else {
+		fmt.Printf("DeleteFirst: deleted %v\n", data)
+	}
+	fmt.Printf("Length of list is: %v\n", dll.length())
+	dll.display()
+
+	data, err = dll.deleteLast()
+	if err != nil {
+		fmt.Errorf("Error while deleting last element: %v\n", err)
+	} else {
+		fmt.Printf("DeleteLast: deleted %v\n", data)
+	}
+	fmt.Printf("Length of list is: %v\n", dll.length())
+	dll.display()
+
+	data, err = dll.deleteAt(2)
+	if err != nil {
+		fmt.Errorf("Error while deleting first element: %v\n", err)
+	} else {
+		fmt.Printf("DeleteAt(%v): deleted %v\n", 2, data)
+	}
 	fmt.Printf("Length of list is: %v\n", dll.length())
 	dll.display()
 }
