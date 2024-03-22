@@ -1,4 +1,4 @@
-package dailycondingproblems
+package dailycodingproblems
 
 import (
 	"math"

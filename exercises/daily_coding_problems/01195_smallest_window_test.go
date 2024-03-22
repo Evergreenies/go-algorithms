@@ -1,4 +1,4 @@
-package dailycondingproblems_test
+package dailycodingproblems
 
 /**
  * Given a string, find the length of the smallest window that contains
