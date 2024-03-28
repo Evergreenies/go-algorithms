@@ -84,7 +84,7 @@ func (stack *Stack) display(t *testing.T) {
 	t.Logf("TOP:  %v\n\n", stack.top)
 }
 
-func assert(t *testing.T, actual interface{}, expected interface{}) {
+func assert1197(t *testing.T, actual interface{}, expected interface{}) {
 	if actual == expected {
 		t.Logf("PASSED: \n\tActual: %v\n\tExpected: %v\n", actual, expected)
 	} else {
@@ -111,8 +111,8 @@ func TestStack(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	assert(t, element, 2)
+	assert1197(t, element, 2)
 	stack.display(t)
 
-	assert(t, stack.max(), 2)
+	assert1197(t, stack.max(), 2)
 }
