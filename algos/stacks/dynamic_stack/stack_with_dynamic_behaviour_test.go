@@ -69,6 +69,10 @@ func (stack *Stack) Pop() (interface{}, error) {
 	stack.arr[stack.top] = make([]interface{}, 0)[0]
 	stack.top--
 
+	if stack.Size() <= int(stack.capacity)/2 {
+		stack.Resize()
+	}
+
 	return top, nil
 }
 
