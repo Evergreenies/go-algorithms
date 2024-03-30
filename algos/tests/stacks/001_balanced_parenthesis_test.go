@@ -3,7 +3,7 @@ package stacks_test
 import (
 	"testing"
 
-	stacks "github.com/Evergreenies/go-algorithms/algos/stacks/simple_stack"
+	customstack "github.com/Evergreenies/go-algorithms/algos/stacks/custom_stack"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -24,23 +24,26 @@ var pairs = map[rune]pair{
 }
 
 func isParenthesisBalanced(str string) bool {
-	stack := stacks.NewStack(1)
+	stack := customstack.NewStack()
 
 	for _, symbol := range str {
-		if pr, ok := pairs[symbol]; ok {
-			if symbol == pr.open {
-				stack.Push(symbol)
-			} else {
-				if stack.IsEmpty() {
+		pr, ok := pairs[symbol]
+
+		if symbol == pr.open {
+			stack.Push(symbol)
+		} else if ok {
+
+			if stack.IsEmpty() {
+				return false
+			}
+
+			top, _ := stack.Peek()
+			if top == pr.open {
+				if symbol != pr.close {
 					return false
 				}
 
-				top, _ := stack.Pop()
-				if top == pr.open {
-					if symbol != pr.close {
-						return false
-					}
-				}
+				stack.Pop()
 			}
 		}
 	}
@@ -52,9 +55,10 @@ func TestBalancedParenthesis(t *testing.T) {
 	assert := assert.New(t)
 
 	assert.True(isParenthesisBalanced("()"), "() is balances parenthesis")
-	// assert.True(isParenthesisBalanced("() (() [()])"), "() (() [()]) is balances parenthesis")
-	// assert.True(isParenthesisBalanced("(a+b)+(c-d)"), "(a+b)+(c-d) this is valid expression")
-	// assert.True(isParenthesisBalanced("((a+b)+[c-d])"), "((a+b)+[c-d]) this must be a valid expression")
-	// assert.Equal(isParenthesisBalanced("((a+b)+[c-d]"), false, "((a+b)+[c-d] this is not a valid expression")
-	// assert.Equal(isParenthesisBalanced("((a+b)+[c-d})"), false, "((a+b)+[c-d}) this is not a valid expression")
+	assert.True(isParenthesisBalanced("() (() [()])"), "() (() [()]) is balances parenthesis")
+	assert.True(isParenthesisBalanced("(a+b)+(c-d)"), "(a+b)+(c-d) this is valid expression")
+	assert.True(isParenthesisBalanced("((a+b)+[c-d])"), "((a+b)+[c-d]) this must be a valid expression")
+	assert.Equal(isParenthesisBalanced("((a+b)+[c-d]"), false, "((a+b)+[c-d] this is not a valid expression")
+	assert.Equal(isParenthesisBalanced("((a+b)+[c-d})"), false, "((a+b)+[c-d}) this is not a valid expression")
+	assert.Equal(isParenthesisBalanced("[}"), false, "[c-d} is invalid syntax")
 }
