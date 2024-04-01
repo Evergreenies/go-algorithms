@@ -92,7 +92,7 @@ func (cm *CountMap) getMin() interface{} {
 	return cm.minKey
 }
 
-func assert(t *testing.T, actual interface{}, expected interface{}) {
+func assert1196(t *testing.T, actual interface{}, expected interface{}) {
 	if actual == expected {
 		t.Logf("PASSED: \n\tActual: %v\n\tExpected: %v\n", actual, expected)
 	} else {
@@ -105,34 +105,34 @@ func TestCountMap(t *testing.T) {
 	countMap.countMap = make(map[interface{}]int)
 
 	countMap.minus("a")
-	assert(t, countMap.getMax(), nil)
-	assert(t, countMap.getMin(), nil)
+	assert1196(t, countMap.getMax(), nil)
+	assert1196(t, countMap.getMin(), nil)
 
 	countMap.plus("a")
-	assert(t, countMap.getMax(), "a")
-	assert(t, countMap.getMin(), "a")
+	assert1196(t, countMap.getMax(), "a")
+	assert1196(t, countMap.getMin(), "a")
 
 	countMap.plus("a")
-	assert(t, countMap.getMax(), "a")
-	assert(t, countMap.getMin(), "a")
+	assert1196(t, countMap.getMax(), "a")
+	assert1196(t, countMap.getMin(), "a")
 
 	countMap.plus("b")
-	assert(t, countMap.getMax(), "a")
-	assert(t, countMap.getMin(), "b")
+	assert1196(t, countMap.getMax(), "a")
+	assert1196(t, countMap.getMin(), "b")
 
 	countMap.minus("b")
-	assert(t, countMap.getMax(), "a")
-	assert(t, countMap.getMin(), "a")
+	assert1196(t, countMap.getMax(), "a")
+	assert1196(t, countMap.getMin(), "a")
 
 	countMap.minus("b")
-	assert(t, countMap.getMax(), "a")
-	assert(t, countMap.getMin(), "a")
+	assert1196(t, countMap.getMax(), "a")
+	assert1196(t, countMap.getMin(), "a")
 
 	countMap.minus("a")
-	assert(t, countMap.getMax(), "a")
-	assert(t, countMap.getMin(), "a")
+	assert1196(t, countMap.getMax(), "a")
+	assert1196(t, countMap.getMin(), "a")
 
 	countMap.minus("a")
-	assert(t, countMap.getMax(), nil)
-	assert(t, countMap.getMin(), nil)
+	assert1196(t, countMap.getMax(), nil)
+	assert1196(t, countMap.getMin(), nil)
 }
