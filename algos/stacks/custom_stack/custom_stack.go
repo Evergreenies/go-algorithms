@@ -14,6 +14,8 @@ type StackIntf interface {
 	Push(data interface{})
 	Pop() (interface{}, error)
 	Peek() (interface{}, error)
+	InsertAtBottom(data interface{})
+	ReverseStack()
 }
 
 func (stack *Stack) Init() *Stack {
@@ -59,4 +61,25 @@ func (stack *Stack) Peek() (interface{}, error) {
 	}
 
 	return stack.Arr[stack.Top], nil
+}
+
+func (stack *Stack) InsertAtBottom(data interface{}) {
+	if stack.IsEmpty() {
+		stack.Push(data)
+		return
+	}
+
+	top, _ := stack.Pop()
+	stack.InsertAtBottom(data)
+	stack.Push(top)
+}
+
+func (stack *Stack) ReverseStack() {
+	if stack.IsEmpty() {
+		return
+	}
+
+	top, _ := stack.Pop()
+	stack.ReverseStack()
+	stack.InsertAtBottom(top)
 }
