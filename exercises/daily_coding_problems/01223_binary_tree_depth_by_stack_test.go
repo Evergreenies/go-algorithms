@@ -1,6 +1,7 @@
 package dailycodingproblems
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -33,11 +34,12 @@ func getMaxOfStack(depth int, stack []string) int {
 
 func binaryTreeMaxDepth(str string) int {
 	stack, depth := make([]string, 0), 0
-	for char := range str {
-		if string(char) == "(" {
-			stack = append(stack, string(char))
+	for _, char := range str {
+		strChar := fmt.Sprintf("%s", string(char))
+		if strChar == "(" {
+			stack = append(stack, strChar)
 			depth = getMaxOfStack(depth, stack)
-		} else if string(char) == ")" {
+		} else if strChar == ")" {
 			stack = stack[:len(stack)-1]
 		}
 	}
