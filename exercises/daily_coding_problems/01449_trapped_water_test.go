@@ -26,7 +26,7 @@ func (trappedWater) trappedWaterLogic(height []int) int {
 	left, right := 0, len(height)-1
 	leftMax, rightMax, totalWater := 0, 0, 0
 
-	for left <= right {
+	for left < right {
 		if height[left] <= height[right] {
 			if height[left] >= leftMax {
 				leftMax = height[left]
