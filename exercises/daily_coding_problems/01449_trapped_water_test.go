@@ -36,7 +36,7 @@ func (trappedWater) trappedWaterLogic(height []int) int {
 
 			left++
 		} else {
-			if height[right] >= right {
+			if height[right] >= rightMax {
 				rightMax = height[right]
 			} else {
 				totalWater += rightMax - height[right]
@@ -55,4 +55,5 @@ func TestTrappedWaterLogic(t *testing.T) {
 
 	assert.Equal(1, tw.trappedWaterLogic([]int{2, 1, 2}))
 	assert.Equal(8, tw.trappedWaterLogic([]int{3, 0, 1, 3, 0, 5}))
+	assert.Equal(0, tw.trappedWaterLogic([]int{5, 4, 3, 2, 1}))
 }
